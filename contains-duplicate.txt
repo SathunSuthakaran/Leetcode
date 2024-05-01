@@ -1,0 +1,19 @@
+###PROBLEM
+
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+###SOLUTION
+
+class Solution(object):
+    def containsDuplicate(self, nums):
+        sorted_list = sorted(nums)
+        for i in range(0, len(nums) -1):
+            if (sorted_list[i] == sorted_list[i+1]):
+                return True
+    
+        return False
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        
