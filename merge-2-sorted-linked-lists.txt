@@ -1,0 +1,57 @@
+###PROBLEM
+
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+Return the head of the merged linked list.
+
+
+###SOLUTION
+
+#Note
+Used a bit of convoluted code at the start to initalize the listnode
+Definitely an easier way to do this, just the first way I thought of 
+In the 15 minute I gave myself
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        l1pointer = list1
+        l2pointer = list2
+        if (l1pointer and l2pointer):
+            if (l1pointer.val < l2pointer.val):
+                new_list = ListNode(l1pointer.val)
+                l1pointer = l1pointer.next
+            else:
+                new_list = ListNode(l2pointer.val)
+                l2pointer = l2pointer.next
+        elif l1pointer:
+            new_list = ListNode(l1pointer.val)
+            l1pointer = l1pointer.next
+        elif l2pointer:
+            new_list = ListNode(l2pointer.val)
+            l2pointer = l2pointer.next
+        else:
+            return None
+        prev = new_list
+        while l1pointer or l2pointer:
+            if (l1pointer and l2pointer):
+                if (l1pointer.val < l2pointer.val):
+                    new_list.next = l1pointer
+                    l1pointer = l1pointer.next
+                else:
+                    new_list.next = l2pointer
+                    l2pointer = l2pointer.next
+            elif l1pointer:
+                new_list.next = l1pointer
+                l1pointer = l1pointer.next
+            else:
+                new_list.next = l2pointer
+                l2pointer = l2pointer.next
+            new_list = new_list.next
+        return prev
