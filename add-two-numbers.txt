@@ -1,0 +1,61 @@
+You are given two non-empty linked lists representing two non-negative integers. 
+The digits are stored in reverse order, and each of their nodes contains a single digit. 
+Add the two numbers and return the sum as a linked list.
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2, int carry=0) {
+        if (l1 && l2) {
+            ListNode *final = new ListNode(l1->val + l2->val + carry);
+            if (final->val >= 10) {
+                final->val = final->val - 10;
+                final->next = addTwoNumbers(l1->next, l2->next, 1);
+            }
+            else {
+                final->next = addTwoNumbers(l1->next, l2->next,0);
+            }
+            return final;
+        }
+        else if (l1) {
+            ListNode *final = new ListNode(l1->val + carry);
+            if (final->val >= 10) {
+                final->val -= 10;
+                final->next = addTwoNumbers(l1->next, l2, 1);
+            }
+            else {
+                final->next = addTwoNumbers(l1->next, l2,0);
+            }
+            return final;
+        }
+        else if (l2) {
+            ListNode *final = new ListNode(l2->val + carry);
+             if (final->val >= 10) {
+                final->val -= 10;
+                final->next = addTwoNumbers(l1, l2->next, 1);
+            }
+            else {
+                final->next = addTwoNumbers(l1, l2->next,0);
+            }
+            return final;
+        }
+        else {
+            if (carry == 0){
+                return nullptr;
+            }
+            else {
+                ListNode *final = new ListNode(carry);
+                return final;
+            }
+        }
+    }
+};
