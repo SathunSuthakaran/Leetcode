@@ -1,0 +1,12 @@
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        arr = []
+        for i in magazine:
+            arr.append(i)
+        
+        for i in ransomNote:
+            if i not in arr:
+                return False
+            else:
+                arr.remove(i)
+        return True

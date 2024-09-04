@@ -1,0 +1,13 @@
+# The isBadVersion API is already defined for you.
+# def isBadVersion(version: int) -> bool:
+
+class Solution:
+    def firstBadVersion(self, n: int, lower_bound = 0) -> int:
+        median = (n+lower_bound)//2
+        print(n, median)
+        if isBadVersion(n) and not isBadVersion(n-1):
+            return n
+        elif isBadVersion(median):
+            return self.firstBadVersion(median, lower_bound)
+        else:
+            return self.firstBadVersion(n, median)

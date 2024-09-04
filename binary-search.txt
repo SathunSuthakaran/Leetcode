@@ -1,0 +1,16 @@
+class Solution:
+    def search(self, nums: List[int], target: int, index_sum = 0) -> int:
+        length = len(nums)
+        index = length // 2
+        print(index)
+        print(nums)
+        if length == 0:
+            return -1
+        elif nums[index] == target:
+            return index + index_sum
+        elif nums[index] < target:
+            return self.search(nums[index+1:length], target, index_sum + index + 1)
+        else:
+            return self.search(nums[0:index], target, index_sum)
+
+

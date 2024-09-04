@@ -1,0 +1,13 @@
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        max_twos = n // 2
+        sum = 1
+        if n == 1:
+            return 1
+        if n == 2:
+            return 2
+        for i in range(1, max_twos+1):
+            ones = n - 2 * i
+            sum += (math.factorial(i + ones) // (math.factorial(i) * math.factorial(ones)))
+            print(ones, sum)
+        return sum

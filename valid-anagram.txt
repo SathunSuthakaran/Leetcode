@@ -1,0 +1,20 @@
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        counter = 0
+        length = len(t)
+        t_arr = []
+        s_arr = []
+        for char in t:
+            t_arr.append(char)
+        
+        for char in s:
+            if char in t_arr:
+                t_arr.remove(char)
+            else:
+                return False
+        
+        if len(t_arr) == 0:
+            return True
+        else:
+            return False
+        

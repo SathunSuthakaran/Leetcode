@@ -1,0 +1,18 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        count = 0
+        arr = []
+        for i in s:
+            arr.append(i)
+        
+        for i in arr:
+            temp = arr.count(i)
+            if temp > 1:
+                print(i, temp)
+                count += (temp // 2 * 2)
+                arr = list(filter((i).__ne__, arr)) 
+                if temp % 2 != 0:
+                    arr.append(i)
+        if len(arr) != 0:
+            count+=1
+        return count
