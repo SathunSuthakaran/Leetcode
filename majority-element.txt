@@ -1,0 +1,17 @@
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        arr = sorted(nums)
+        max_count = {}
+        if len(nums) == 1:
+            return nums[0]
+        curr_element = nums[0]
+        curr_count = 1
+        for i in range(1, len(nums)):
+            if nums[i] == curr_element:
+                curr_count +=1
+            else:
+                max_count[curr_count] = nums[i]
+                curr_count = 1
+                curr_element = nums[i]
+        print(max_count)
+        return max_count[max(max_count)]
