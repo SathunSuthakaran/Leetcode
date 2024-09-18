@@ -1,23 +1,19 @@
-###PROBLEM
-
-Given an integer array nums, find the subarray with the largest sum, and return its sum.
-
-###SOLUTION
-
-class Solution(object):
-    def maxSubArray(self, nums):
-        sum = 0
-        max_sum = nums[0]
-        for end in range(0, len(nums)):
-            if (nums[end] > (nums[end] + sum)):
-                sum = nums[end]
-                print(nums[end])
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        max_sum = -10000
+        if len(nums) == 1:
+            return nums[0]
+        left = 0
+        right = 1
+        curr_sum = -10000
+        counter = 0
+        while counter < len(nums):
+            max_sum = max(curr_sum, max_sum)
+            if (curr_sum + nums[counter]) <= nums[counter]:
+                curr_sum = nums[counter]
             else:
-                sum+= nums[end]
-            max_sum = max(sum, max_sum)
+                curr_sum += nums[counter]
+            print(curr_sum)
+            counter+=1
+        max_sum = max(curr_sum, max_sum)
         return max_sum
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        
