@@ -1,0 +1,74 @@
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        start = newInterval[0]
+        end = newInterval[1]
+        checker1 = False
+        checker2 = False
+        new_list = []
+        new_start = 0
+        new_end = 0
+        if len(intervals) == 0:
+            return [newInterval]
+        if len(intervals) == 1:
+            if ((intervals[0][0] <= start <= intervals[0][1]) and (intervals[0][0] <= end <= intervals[0][1])):
+                return intervals
+            elif (start <= intervals[0][0] <= end) and (start <= intervals[0][1] <= end):
+                return [newInterval]
+            elif (intervals[0][0] <= start <= intervals[0][1]) or (intervals[0][0] <= end <= intervals[0][1]):
+                new_start = min(start, intervals[0][0])
+                new_end = max(end, intervals[0][1])
+                return [[new_start, new_end]]
+            elif start < intervals[0][0]:
+                return [[start, end], intervals[0]]
+            else:
+                return [intervals[0], [start, end]]
+
+
+        for i in intervals:
+            print(i, checker2, i[0] <= end <= i[1])
+            if start < i[0] and not checker1:
+                print("0")
+                new_start = start
+                checker1= True
+                if end < i[0]:
+                    print("0.2")
+                    checker2 = True
+                    new_end = end
+                    new_list.append([new_start, new_end])
+                    new_list.append(i)
+                elif i[0] <= end <= i[1]:
+                    new_end = i[1]
+                    new_list.append([new_start, new_end])
+                    checker2 = True
+            elif i[0] <= start <= i[1] and not checker1:
+                print("1")
+                checker1 = True
+                new_start = i[0]
+                if i[0] <= end <= i[1] and not checker2:
+                    print("1.2")
+                    checker2 = True
+                    new_end = i[1]
+                    new_list.append([new_start, new_end])
+            elif i[0] <= end <= i[1] and not checker2:
+                print("2")
+                checker2 = True
+                new_end = i[1]
+                new_list.append([new_start, new_end])
+            elif checker1 and i[1] < end:
+                continue
+            elif checker1 and not checker2:
+                print("3")
+                checker2 = True
+                new_end = end
+                new_list.append([new_start, new_end])
+                new_list.append(i)
+            else:
+                print("4")
+                new_list.append(i)
+        if not checker1:
+            new_start = start
+        if not checker2:
+            new_end = end
+            new_list.append([new_start, new_end])
+        print(new_start, new_end)
+        return new_list
