@@ -1,0 +1,31 @@
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        dicto = {}
+        for i in points:
+            distance = ((i[0] ** 2) + (i[1] ** 2))
+
+            if distance in dicto:
+                dicto[distance].append(i)
+            else:
+                dicto[distance] = [i]
+
+        keys = dicto.keys()
+        keys = sorted(keys)
+        count = k
+        final_arr = []
+        for i in keys:
+            if count <= 0:
+                break
+            elif (len(dicto[i]) >= k):
+                for x in range(0, count):
+                    final_arr.append(dicto[i][0])
+                    dicto[i].pop(0)
+                break
+            else:
+                print('here')
+                temp = len(dicto[i])
+                for x in range(0, temp):
+                    final_arr.append(dicto[i][0])
+                    dicto[i].pop(0)
+                count -= temp
+        return final_arr
