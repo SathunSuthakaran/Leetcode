@@ -1,0 +1,22 @@
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        arr = []
+        for i in strs:
+            arr.append(str(sorted(list(i))))
+
+        print(arr)
+        dicto = {}
+
+        for index in range(0, len(arr)):
+            if arr[index] in dicto:
+                dicto[arr[index]].append(strs[index])
+            else:
+                dicto[arr[index]] = [strs[index]]
+        
+        print(dicto)
+        keys = dicto.keys()
+        new_arr = []
+        for key in keys:
+            new_arr.append(dicto[key])
+        
+        return new_arr
