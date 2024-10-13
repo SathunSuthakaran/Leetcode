@@ -1,0 +1,30 @@
+class Solution:
+    def maximumSum(self, nums: List[int]) -> int:
+        sum_dict = {}
+        
+        for i in range(0, len(nums)):
+            temp = nums[i]
+            summ = 0
+            while (temp > 0):
+                summ += (temp % 10)
+                temp = temp // 10
+            
+            if summ in sum_dict:
+                sum_dict[summ].append(nums[i])
+            else:
+                sum_dict[summ] = [nums[i]]
+        
+        
+        keys = sum_dict.keys()
+        max_sum = -1
+        temp_sum = 0
+        for key in keys:
+            print(sum_dict[key])
+            sum_dict[key] = sorted(sum_dict[key], reverse=True) 
+            if len(sum_dict[key]) == 1:
+                continue
+            else:
+                max_sum = max(max_sum, (sum_dict[key][0] + sum_dict[key][1]))
+                
+        return max_sum
+
