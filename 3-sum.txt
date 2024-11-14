@@ -1,0 +1,32 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        triplets = []
+        nums = sorted(nums)
+        
+        for num1 in range(len(nums)):
+            # Skip duplicates for the num1 element
+            if num1 > 0 and nums[num1] == nums[num1 - 1]:
+                continue
+            
+            difference = 0 - nums[num1]
+            left, right = num1 + 1, len(nums) - 1
+            
+            while left < right:
+                current_sum = nums[left] + nums[right]
+                if current_sum == difference:
+                    triplets.append([nums[num1], nums[left], nums[right]])
+                    
+                    # Skip duplicates for `left` and `right`
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right - 1]:
+                        right -= 1
+                    
+                    left += 1
+                    right -= 1
+                elif current_sum < difference:
+                    left += 1
+                else:
+                    right -= 1
+                    
+        return triplets
