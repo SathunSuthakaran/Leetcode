@@ -1,0 +1,25 @@
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        operands = []
+        curr = 0
+        for token in tokens:
+            if token == "*":
+                operand2 = int(operands.pop(-1))
+                operand1 = int(operands.pop(-1))
+                operands.append(operand1 * operand2)
+            elif token == "/":
+                operand2 = int(operands.pop(-1))
+                operand1 = int(operands.pop(-1))
+                operands.append(int(operand1 / operand2))
+            elif token == "+":
+                operand2 = int(operands.pop(-1))
+                operand1 = int(operands.pop(-1))
+                operands.append(operand1 + operand2)
+            elif token == "-":
+                operand2 = int(operands.pop(-1))
+                operand1 = int(operands.pop(-1))
+                operands.append(operand1 - operand2)
+            else:
+                operands.append(token)
+
+        return int(operands[0])              
