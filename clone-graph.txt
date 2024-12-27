@@ -1,0 +1,15 @@
+class Solution:
+    def __init__(self):
+        self.visited = {}
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
+        elif node in self.visited:
+            return self.visited[node]
+        else:
+            new_node = Node(node.val)
+            self.visited[node] = new_node
+            new_node.neighbors = []
+            for neighbor in node.neighbors:
+                new_node.neighbors.append(self.cloneGraph(neighbor))
+            return new_node
