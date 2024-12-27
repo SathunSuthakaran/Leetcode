@@ -13,3 +13,5 @@ class Solution:
             for neighbor in node.neighbors:
                 new_node.neighbors.append(self.cloneGraph(neighbor))
             return new_node
+
+###Uses hashmap for storage of nodes
