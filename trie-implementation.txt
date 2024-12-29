@@ -1,0 +1,35 @@
+class Trie:
+    class ListNode:
+        def __init__(self, isEnd = False):
+            self.isEnd = isEnd
+            self.children = {}
+    def __init__(self):
+        self.root = self.ListNode()
+    def insert(self, word: str) -> None:
+        currNode = self.root
+        for char in word:
+            if char in currNode.children:
+                currNode = currNode.children[char]
+            else:
+                currNode.children[char] = self.ListNode()
+                currNode = currNode.children[char]
+        currNode.isEnd = True
+
+    def search(self, word: str) -> bool:
+        currNode = self.root
+        for char in word:
+            if char not in currNode.children:
+                return False
+            else:
+                currNode = currNode.children[char]
+        return currNode.isEnd
+
+    def startsWith(self, prefix: str) -> bool:
+        currNode = self.root
+        for char in prefix:
+            if char not in currNode.children:
+                return False
+            else:
+                currNode = currNode.children[char]
+        return True
+
