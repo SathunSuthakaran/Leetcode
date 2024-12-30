@@ -1,0 +1,16 @@
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        def checkHeight(node: Optional[TreeNode]) -> int:
+            if not node:
+                return 0
+            else:
+                return 1 + max(checkHeight(node.left), checkHeight(node.right))
+        
+        if not root:
+            return True
+        else:
+            print(checkHeight(root.left), checkHeight(root.right))
+            if (abs(checkHeight(root.left) - checkHeight(root.right))> 1):
+                return False
+            else:
+                return (self.isBalanced(root.left) and self.isBalanced(root.right))
