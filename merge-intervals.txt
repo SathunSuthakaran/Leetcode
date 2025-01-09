@@ -1,0 +1,31 @@
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        interval = {}
+        for i in intervals:
+            if i[0] in interval:
+                interval[i[0]] = max(interval[i[0]], i[1])
+            else:
+                interval[i[0]] = i[1]
+
+        keys = sorted(interval.keys())
+        print(interval, keys)
+        point = 0
+
+        merged = []
+        current_start = keys[0]
+        current_end = interval[keys[0]]
+
+        for i in range(1, len(keys)):
+            if current_end >= keys[i]:  # Overlap
+                current_end = max(current_end, interval[keys[i]])
+            else:  # No overlap
+                merged.append([current_start, current_end])
+                current_start = keys[i]
+                current_end = interval[keys[i]]
+
+        # Add the last interval
+        merged.append([current_start, current_end])
+
+        return merged
+
+
