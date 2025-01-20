@@ -1,0 +1,12 @@
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        original = sorted(p)
+        length = len(p)
+        ret = []
+        for i in range(len(s) - length +1):
+            temp = s[i:i+length]
+            temp = sorted(temp)
+            if temp == original:
+                ret.append(i)
+        
+        return ret
