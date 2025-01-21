@@ -11,21 +11,10 @@ class Solution:
 
         keys = dicto.keys()
         keys = sorted(keys)
-        count = k
-        final_arr = []
-        for i in keys:
-            if count <= 0:
-                break
-            elif (len(dicto[i]) >= k):
-                for x in range(0, count):
-                    final_arr.append(dicto[i][0])
-                    dicto[i].pop(0)
-                break
-            else:
-                print('here')
-                temp = len(dicto[i])
-                for x in range(0, temp):
-                    final_arr.append(dicto[i][0])
-                    dicto[i].pop(0)
-                count -= temp
-        return final_arr
+        ret = []
+        for key in keys:
+            if k > 0:
+                ret.extend(dicto[key])
+                k -= len(dicto[key])
+        
+        return ret
