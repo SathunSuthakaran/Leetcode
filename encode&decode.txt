@@ -1,0 +1,26 @@
+class Solution:
+
+    def encode(self, strs: List[str]) -> str:
+        ret = ""
+        
+        for word in strs:
+            ret += str(len(word))
+            ret += '|'
+            ret += word
+        return ret
+    def decode(self, s: str) -> List[str]:
+        words = [] 
+        i = 0
+        num = ""
+        print(s)
+        while i < len(s):
+            num += s[i]
+            if (s[i+1] == "|"):
+                num = int(num)
+                words.append(s[i+2: i + 2 + num])
+                i = i + 2 + num
+                num = ""
+            else:
+                i +=1
+        return words
+                
