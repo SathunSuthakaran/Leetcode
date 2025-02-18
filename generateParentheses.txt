@@ -1,0 +1,13 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        parentheses = []
+        def backtrack(path, left, right):
+            if left == 0 and right == 0:
+                parentheses.append(path)
+            if right > left:
+                backtrack(path + ")", left, right-1)
+            if left > 0:
+                backtrack(path + "(", left-1, right)
+        
+        backtrack("", n, n)
+        return parentheses
