@@ -1,0 +1,23 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        nums = sorted(nums)
+        curr_num = nums[0]
+        curr_count = 0
+        ret_arr = []
+        for num in nums:
+            if num == curr_num:
+                curr_count +=1
+            else:
+                ret_arr.append((curr_num, curr_count))
+                curr_num = num
+                curr_count = 1
+        ret_arr.append((curr_num, curr_count))
+
+        ret_arr = sorted(ret_arr, key=lambda x: x[1], reverse=True)
+        print(ret_arr)
+        actual_ret= []
+        for i in range(0, k):
+            actual_ret.append(ret_arr[i][0])   
+
+        return actual_ret         
+         
