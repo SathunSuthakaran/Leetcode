@@ -1,0 +1,21 @@
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
+        queue = deque()
+        queue.append(len(s))
+        while queue:
+            for i in range(len(queue)):
+                index = queue.popleft()
+             
+                for word in wordDict:
+                    if index - len(word) < 0:
+                        continue
+                    else:
+                        if dp[index] == True and s[index-len(word):index] == word and not dp[index - len(word)]:
+                            dp[index-len(word)] = True
+                            queue.append(index-len(word))
+        
+   
+        return dp[0]
+                    
