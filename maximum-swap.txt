@@ -1,0 +1,31 @@
+class Solution:
+    def maximumSwap(self, num: int) -> int:
+        str_num = str(num)
+        arr = []
+        for i in str_num:
+            arr.append(int(i))
+        
+        maximum = max(arr)
+
+        new_arr = sorted(arr, reverse=True)
+
+        temp1 = -1
+        temp2 = -1
+        last = {}
+        for i in range(len(arr)):
+            last[arr[i]] = i
+        print(last)
+        for i in range(len(arr)):
+            if arr[i] != new_arr[i]:
+                temp = arr[i]
+                arr[last[new_arr[i]]] = temp
+                arr[i] = new_arr[i]
+                break 
+                
+            
+        ret = ""
+
+        for i in arr:
+            ret += str(i)
+        
+        return int(ret)
