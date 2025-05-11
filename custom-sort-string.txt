@@ -1,0 +1,9 @@
+class Solution:
+    def customSortString(self, order: str, s: str) -> str:
+        priority = {char: index for index, char in enumerate(order)}
+    
+        # Step 2: Sort string 's' using the priority map
+        sorted_s = sorted(s, key=lambda char: priority.get(char, len(order)))
+    
+        # Step 3: Join the characters back into a string
+        return ''.join(sorted_s)
