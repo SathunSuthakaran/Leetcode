@@ -1,0 +1,18 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        from collections import defaultdict
+        heap = []
+        dicto = defaultdict(int)
+        for i in nums:
+            dicto[i] +=1
+        
+        for i in dicto.keys():
+            heapq.heappush(heap, (dicto[i] * -1, i))
+        
+        ret = []
+        for i in range(k):
+            temp = heapq.heappop(heap)
+            print(temp)
+            ret.append(temp[1])
+        
+        return ret
