@@ -1,0 +1,20 @@
+class Solution:
+    def maxLength(self, ribbons: List[int], k: int) -> int:
+        def can_cut(length: int) -> bool:
+            count = 0
+            for ribbon in ribbons:
+                count += ribbon // length
+            return count >= k
+
+        left, right = 1, max(ribbons)
+        answer = 0
+
+        while left <= right:
+            mid = (left + right) // 2
+            if can_cut(mid):
+                answer = mid  # possible, try longer
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        return answer
