@@ -1,0 +1,35 @@
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        from collections import defaultdict
+
+        graph = defaultdict(set)
+        lookup = {}
+        for account in accounts:
+            name = account[0]
+            emails = account[1:]
+            for email in emails:
+                graph[emails[0]].add(email)
+                graph[email].add(emails[0])
+                lookup[email] = name
+        
+        visited = set()
+        ret = []
+
+        def dfs(email):
+            stack = [email]
+            component = []
+            while stack:
+                node = stack.pop()
+                if node not in visited:
+                    visited.add(node)
+                    component.append(node)
+                    stack.extend(graph[node] - visited)
+            return component
+
+        for email in graph:
+            if email not in visited:
+                temp = [lookup[email]]
+                temp.extend(sorted(dfs(email)))
+                ret.append(temp)
+        
+        return ret
