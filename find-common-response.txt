@@ -1,0 +1,28 @@
+class Solution:
+    def findCommonResponse(self, responses: List[List[str]]) -> str:
+        from collections import defaultdict
+        final = []
+        for response in responses:
+            temp = []
+            visited = set()
+            for res in response:
+                if res not in visited:
+                    temp.append(res)
+                    visited.add(res)
+            final.append(temp)
+
+        
+        print(final)
+        frequency = defaultdict(int)
+        for response in final:
+            for res in response:
+                frequency[res] += 1
+        maximum, char = -1, -1
+        for i in frequency:
+            if frequency[i] > maximum:
+                char, maximum = i, frequency[i]
+            elif frequency[i] == maximum and i < char:
+                char, maximum = i, frequency[i]
+        
+        return char
+                    
