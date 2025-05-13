@@ -1,0 +1,18 @@
+class Solution:
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        global_max = max(nums)
+        count = 0
+        left = 0
+        freq = 0  # Frequency of global_max in current window
+
+        for right in range(len(nums)):
+            if nums[right] == global_max:
+                freq += 1
+
+            while freq >= k:
+                count += len(nums) - right
+                if nums[left] == global_max:
+                    freq -= 1
+                left += 1
+
+        return count
