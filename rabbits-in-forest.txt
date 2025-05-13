@@ -1,0 +1,18 @@
+class Solution:
+    def numRabbits(self, answers: List[int]) -> int:
+        from collections import defaultdict
+        rabbits = defaultdict(int)
+        ones = 0
+        for answer in answers:
+            rabbits[answer] +=1
+        
+        count = 0
+        print(rabbits)
+        for i in rabbits:
+            group_size = i + 1
+            groups = math.ceil(rabbits[i] / group_size)
+            count += groups * group_size
+
+        return count
+
+
