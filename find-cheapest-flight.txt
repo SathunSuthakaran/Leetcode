@@ -1,0 +1,35 @@
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        import heapq
+        from collections import defaultdict
+        graph = defaultdict(list)
+        for u, v, w in flights:
+            graph[u].append((v, w))
+        
+        # Min-heap: (cost, current_city, stops_used)
+        heap = [(0, src, 0)]
+        
+        # (city, stops) -> min_cost dictionary to prune unnecessary paths
+        visited = dict()
+        
+        while heap:
+            cost, city, stops = heapq.heappop(heap)
+            
+            # If destination reached
+            if city == dst:
+                return cost
+            
+            # If within stop limit
+            if stops <= k:
+                for nei, price in graph[city]:
+                    # Only proceed if we haven't visited this node with fewer or same stops at lower cost
+                    if (nei, stops) not in visited or visited[(nei, stops)] > cost + price:
+                        visited[(nei, stops)] = cost + price
+                        heapq.heappush(heap, (cost + price, nei, stops + 1))
+        
+        return -1
+
+        
+        
+
+                    
