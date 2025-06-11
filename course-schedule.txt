@@ -34,4 +34,5 @@ class Solution:
             if hasCycle(course):
                 return False
 
+
         return True
