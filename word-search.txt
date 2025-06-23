@@ -1,0 +1,27 @@
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        visited = set()
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        rows = len(board)
+        cols = len(board[0])
+        def backtrack(index, row, col):
+            if index == len(word):
+                return True
+            if row >=0 and row < rows and col >= 0 and col < cols and (row, col) not in visited and board[row][col] == word[index]:
+                visited.add((row, col))
+                check = False
+                for dx, dy in directions:
+                    if backtrack(index+1, row+dx, col+dy):
+                        visited.remove((row, col))
+                        return True
+                visited.remove((row, col))
+                return False
+            else:
+                return False
+        
+        for i in range(rows):
+            for j in range(cols):
+                if backtrack(0, i, j):
+                    return True
+        
+        return False
