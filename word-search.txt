@@ -1,4 +1,4 @@
-class Solution:
+cdclass Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         visited = set()
         directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
