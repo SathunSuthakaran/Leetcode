@@ -13,4 +13,4 @@ class Solution:
         else:
             return self.search(nums[0:index], target, index_sum)
 
-
+\
