@@ -1,0 +1,43 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        n = len(board)
+
+        for i in range(n):
+            visited = set()
+            for j in range(n):
+                if board[i][j] != ".":
+                    temp = int(board[i][j])
+                    if 0 <= temp <= 9 and temp not in visited:
+                        visited.add(temp)
+                    else:
+                        return False
+        
+        for i in range(n):
+            visited = set()
+            for j in range(n):
+                if board[j][i] != ".":
+                    temp = int(board[j][i])
+                    if 0 <= temp <= 9 and temp not in visited:
+                        visited.add(temp)
+                    else:
+                        return False
+
+        def check_quadrant(row, col):
+            visited = set()
+            for i in range(row, row + 3):
+                for j in range(col, col + 3):
+                    if board[i][j] != ".":
+                        temp = int(board[i][j])
+                        if 0 <= temp <= 9 and temp not in visited:
+                            visited.add(temp)
+                        else:
+                            return False
+            return True
+
+        for i in range(0, 9, 3):
+            for j in range(0, 9, 3):
+                if not check_quadrant(i, j):
+                    return False
+        
+        return True
+
