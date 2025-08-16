@@ -1,0 +1,20 @@
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        heap = []
+        dicto = defaultdict(int)
+        rets = []
+        left = 0
+        if k == 1:
+            return nums
+        for right in range(len(nums)):
+            dicto[nums[right]] += 1
+            heapq.heappush(heap, nums[right] * -1)
+            if (right - left) == k-1:
+                curr_max = heapq.heappop(heap) * -1
+                while dicto[curr_max] == 0:
+                    curr_max = heapq.heappop(heap) * -1
+                heapq.heappush(heap, curr_max*-1)
+                rets.append(curr_max)
+                dicto[nums[left]] -= 1
+                left += 1
+        return rets
