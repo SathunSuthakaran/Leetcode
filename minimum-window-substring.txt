@@ -1,0 +1,39 @@
+from collections import Counter
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        char_counts = Counter(t)
+        chars = set(char_counts.keys())
+        curr_dict = Counter(t)
+        left = 0
+        rets = []
+
+        for right in range(len(s)):
+            # print(curr_dict)  # (optional debug)
+            if s[right] in chars:
+                curr_dict[s[right]] -= 1
+
+            # window is valid if we've satisfied all required counts (<= 0)
+            valid = True
+            for c in chars:
+                if curr_dict[c] > 0:
+                    valid = False
+                    break
+
+            if valid:
+                # shrink from the left while still valid
+                while left <= right and (s[left] not in chars or curr_dict[s[left]] < 0):
+                    if s[left] in chars:
+                        curr_dict[s[left]] += 1
+                    left += 1
+                rets.append(s[left:right+1])
+
+            # print(left, right)  # (optional debug)
+
+        min_length = float('inf')
+        min_str = ""
+        for i in rets:
+            if len(i) < min_length:
+                min_str = i
+                min_length = len(i)
+        return min_str
