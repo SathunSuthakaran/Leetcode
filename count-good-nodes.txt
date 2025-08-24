@@ -1,0 +1,22 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        ret = []
+        def max_parent(node, max_so_far):
+            if not node:
+                return
+            elif node.val >= max_so_far:
+                ret.append(node)
+                max_parent(node.left, node.val)
+                max_parent(node.right, node.val)
+            else:
+                max_parent(node.left, max_so_far)
+                max_parent(node.right, max_so_far)
+        max_parent(root, float('-inf'))
+        return len(ret)

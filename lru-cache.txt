@@ -17,3 +17,4 @@ class LRUCache:
 
         if len(self.cache) > self.cap:
             self.cache.popitem(last=False)
+            
