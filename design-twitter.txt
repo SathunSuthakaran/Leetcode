@@ -1,0 +1,33 @@
+class Twitter:
+
+    def __init__(self):
+        self.heap = []
+        self.recency = 1
+        self.followList = defaultdict(set)
+    def postTweet(self, userId: int, tweetId: int) -> None:
+        heapq.heappush(self.heap, (self.recency * -1, userId, tweetId))
+        self.recency += 1
+    def getNewsFeed(self, userId: int) -> List[int]:
+        temp = []
+        ret = []
+        count = 0
+        following = self.followList[userId]
+        following.add(userId)
+        while self.heap and count < 10:
+            curr = heapq.heappop(self.heap)
+            temp.append(curr)
+            if curr[1] in following:
+                ret.append(curr[2])
+                count += 1
+        while temp:
+            heapq.heappush(self.heap, (temp[-1]))
+            temp.pop()
+        return ret
+            
+
+    def follow(self, followerId: int, followeeId: int) -> None:
+        self.followList[followerId].add(followeeId)
+
+    def unfollow(self, followerId: int, followeeId: int) -> None:
+        if followeeId in self.followList[followerId]:
+            self.followList[followerId].remove(followeeId)
