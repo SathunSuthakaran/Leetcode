@@ -1,0 +1,25 @@
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        dicto = Counter(tasks)
+        heap = []
+        for key in dicto.keys():
+            heapq.heappush(heap, (dicto[key]*-1, key))
+        cycles = 0
+        while True:
+            temp = []
+            curr_cycles = 0
+            while heap and curr_cycles < n + 1:
+                curr = heapq.heappop(heap)
+                val = curr[0] * -1
+                curr_cycles += 1
+                val -= 1
+                if val > 0:
+                    temp.append((val * -1, curr[1]))
+            if not heap and len(temp) == 0:
+                cycles += curr_cycles
+                return cycles
+            cycles += n+1
+            for i in temp:
+                heapq.heappush(heap, i)
+            
+
