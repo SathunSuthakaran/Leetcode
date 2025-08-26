@@ -1,0 +1,22 @@
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        graph = defaultdict(list)
+        for edge in edges:
+            graph[edge[0]].append(edge[1])
+            graph[edge[1]].append(edge[0])
+        visited = set()
+        def dfs(u, parent):
+            if u in visited:
+                return
+            visited.add(u)
+            for v in graph[u]:
+                if v == parent:
+                    continue
+                dfs(v, u)
+        components = 0
+        for i in graph.keys():
+            if i not in visited:
+                components += 1
+                dfs(i, -1)
+        components += (n - len(visited))
+        return components
