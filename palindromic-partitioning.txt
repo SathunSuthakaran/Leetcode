@@ -1,0 +1,16 @@
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        paths = []
+        def backtrack(start, path):
+            print(path)
+            if start == len(s):
+                paths.append(path[:])
+            for i in range(start+1, len(s)+1):
+                temp = s[start:i]
+                if temp == temp[::-1]:
+                    path.append(temp)
+                    backtrack(i, path)
+                    path.pop()
+        
+        backtrack(0, [])
+        return paths
