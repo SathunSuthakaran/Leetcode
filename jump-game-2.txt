@@ -1,0 +1,19 @@
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n <= 1:
+            return 0
+
+        jumps = 0
+        current_end = 0   # end of current "layer"
+        farthest = 0      # farthest we can reach within this layer
+
+        for i in range(n - 1):  # no need to step on last index
+            farthest = max(farthest, i + nums[i])
+            if i == current_end:         # we finished a layer → take a jump
+                jumps += 1
+                current_end = farthest
+                if current_end >= n - 1: # last index now reachable
+                    break
+        return jumps
+        
