@@ -1,0 +1,27 @@
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        # A tree with n nodes must have exactly n-1 edges
+        if len(edges) != n - 1:
+            return False
+
+        # Build adjacency for all nodes (including isolated ones)
+        graph = [[] for _ in range(n)]
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+
+        visited = set()
+
+        def dfs(u: int, parent: int) -> bool:
+            if u in visited:
+                return False  # found a back-edge => cycle
+            visited.add(u)
+            for v in graph[u]:
+                if v == parent:
+                    continue  # don't go back to where we came from
+                if not dfs(v, u):
+                    return False
+            return True
+
+        # Start from node 0; with n-1 edges, cycle-free DFS implies connectivity
+        return dfs(0, -1) and len(visited) == n
