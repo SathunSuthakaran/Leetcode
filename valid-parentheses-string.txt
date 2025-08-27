@@ -1,0 +1,26 @@
+class Solution:
+    def checkValidString(self, s: str) -> bool:
+        stack = []
+        other_stack = []
+        for char in range(len(s)):
+            if s[char] == "(":
+                stack.append(char)
+            elif s[char] == "*":
+                other_stack.append(char)
+            elif s[char] == ")":
+                if stack:
+                    stack.pop()
+                elif other_stack:
+                    other_stack.pop()
+                else:
+                    return False
+        print(stack, other_stack) 
+        while stack and other_stack:
+            curr1 = stack.pop()
+            curr2 = other_stack.pop()
+            if curr2 < curr1:
+                return False
+        if stack:
+            return False
+        return True
+                    
