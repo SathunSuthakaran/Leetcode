@@ -1,0 +1,22 @@
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        dicto = Counter(s)
+        ret = []
+        curr = ""
+        for char in s:
+            dicto[char] -= 1
+            curr += char
+            if dicto[char] != 0:
+                continue
+            else:
+                check = True
+                for l in curr:
+                    if dicto[l] != 0:
+                        check = False
+                        break
+                if check:
+                    ret.append(len(curr))
+                    curr = ""
+                else:
+                    continue
+        return ret
